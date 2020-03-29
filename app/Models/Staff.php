@@ -12,4 +12,9 @@ class Staff extends Model
     {
         return $this->hasMany('App\Models\StaffScoreLog');
     }
+
+    public function reward()
+    {
+        return $this->hasOne('App\Models\Reward','id', 'reward_id');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Admin\Actions\Score;
 
+use App\Models\Reward;
 use Encore\Admin\Actions\RowAction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -19,6 +20,29 @@ class Update extends RowAction
         $staffId = $model->id;
         $score = $request->get('score');
 
+        $staffData = Staff::find($staffId);
+        $beforeScore = $staffData->total_score;
+
+        //本次积分修改后的总积分
+        $afterScore = $beforeScore + $score;
+
+        //积分奖励列表
+        $rewardListData = Reward::where('status', 1)->get()->toArray();
+        $rewardList = array();
+        foreach ($rewardListData as $v) {
+            if ($afterScore >= $v['starting_point']) {
+                $rewardList[$v['id']] = $v['starting_point'];
+            }
+        }
+
+        //当前总积分同时满足多个积分奖励标准，取最大值记录
+        if (!empty($rewardList)) {
+            $rewardIdArray = array_keys($rewardList, max($rewardList));
+            $rewardId = $rewardIdArray[0];
+        } else {
+            $rewardId = 0;
+        }
+
         $staffScoreLogModel = new StaffScoreLog;
         $staffScoreLogModel->staff_id = $staffId;
         $staffScoreLogModel->score = $score;
@@ -31,10 +55,11 @@ class Update extends RowAction
                 throw new \Exception();
             }
 
-            $staffModel = Staff::find($staffId);
-            $incrementRes = $staffModel->increment('total_score', $score);
+            $staffData->total_score = $afterScore;
+            $staffData->reward_id = $rewardId;
+            $updateStaffRes = $staffData->save();
 
-            if (!$incrementRes) {
+            if (!$updateStaffRes) {
                 throw new \Exception();
             }
 

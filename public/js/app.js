@@ -50024,54 +50024,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            firstPos: [],
-            secondPos: [],
-            thirdPos: [],
-            otherPos: [],
-            dutyStaffData: [],
+            leaderboard_data: [],
             leaderboard_update_time: '',
+            dutyStaffData: [],
             today_duty_update_time: ''
         };
     },
@@ -50083,22 +50042,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var leaderboardUrl = "/api/getLeaderboard";
             this.axios.get(leaderboardUrl).then(function (response) {
                 if (response.status == 200) {
-                    _this.leaderboard = response.data;
-                    _this.firstPos = response.data[0];
-                    _this.secondPos = response.data[1];
-                    _this.thirdPos = response.data[2];
-
-                    var otherPos = [];
-                    for (var i = 0; i < response.data.length; i++) {
-                        if (i <= 2) {
-                            continue;
-                        }
-                        otherPos.push(response.data[i]);
-                    }
-                    _this.otherPos = otherPos;
-
-                    var myDate = new Date();
-                    _this.leaderboard_update_time = myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate() + ' ' + myDate.getHours() + ':' + myDate.getMinutes();
+                    _this.leaderboard_data = response.data.leaderboard_data;
+                    _this.leaderboard_update_time = response.data.leaderboard_update_time;
                 } else {
                     console.log('获取积分榜数据失败');
                 }
@@ -50121,7 +50066,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         this.getLeaderboard();
         this.getTodayDuty();
-        setInterval(this.getLeaderboard, 60000);
+        setInterval(this.getLeaderboard, 600000);
     }
 });
 
@@ -50139,11 +50084,31 @@ var render = function() {
     _c(
       "div",
       { staticClass: "list" },
-      _vm._l(_vm.otherPos, function(pos, index) {
+      _vm._l(_vm.leaderboard_data, function(pos, index) {
         return _c("div", { staticClass: "item" }, [
-          _c("div", { staticClass: "pos" }, [
-            _vm._v("\n                " + _vm._s(index + 4) + "\n            ")
-          ]),
+          index === 0
+            ? _c("div", { staticClass: "pos" }, [
+                _c("img", {
+                  attrs: { src: "/images/leaderboard/first.png", alt: "" }
+                })
+              ])
+            : index === 1
+            ? _c("div", { staticClass: "pos" }, [
+                _c("img", {
+                  attrs: { src: "/images/leaderboard/second.png", alt: "" }
+                })
+              ])
+            : index === 2
+            ? _c("div", { staticClass: "pos" }, [
+                _c("img", {
+                  attrs: { src: "/images/leaderboard/third.png", alt: "" }
+                })
+              ])
+            : _c("div", { staticClass: "pos" }, [
+                _vm._v(
+                  "\n                " + _vm._s(index + 1) + "\n            "
+                )
+              ]),
           _vm._v(" "),
           _c("div", { staticClass: "pic", style: pos["head_img"] }),
           _vm._v(" "),
@@ -50169,7 +50134,11 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(1, true)
+          pos["reward_icon"] != ""
+            ? _c("div", { staticClass: "badge" }, [
+                _c("img", { attrs: { src: pos["reward_icon"], alt: "" } })
+              ])
+            : _vm._e()
         ])
       }),
       0
@@ -50213,14 +50182,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "logo" }, [
       _c("img", { attrs: { src: "/images/leaderboard/logo1.png", alt: "" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "badge" }, [
-      _c("img", { attrs: { src: "/images/leaderboard/badge_5.jpg", alt: "" } })
     ])
   }
 ]

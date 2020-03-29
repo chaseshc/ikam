@@ -70,10 +70,16 @@ class DutyController extends Controller
             ->orderBy('created_at', 'desc')
             ->first();
 
-        $todayDutyStaffData = $todayDutyData->staff()->first()->toArray();
+        if (!empty($todayDutyData)) {
+            $todayDutyStaffData = $todayDutyData->staff()->first()->toArray();
+            $dutyCreatedAt = $todayDutyData->created_at->format('Y-m-d H:i');
+        } else {
+            $todayDutyStaffData = array();
+            $dutyCreatedAt = '尚未更新';
+        }
 
         $dutyRes = array(
-            'duty_created_at' => $todayDutyData->created_at->format('Y-m-d H:i'),
+            'duty_created_at' => $dutyCreatedAt,
             'today_duty_staff' => $todayDutyStaffData
         );
         return json_encode($dutyRes);

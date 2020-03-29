@@ -19,8 +19,16 @@ class LeaderboardController extends Controller
             $leaderboardData[$k]['today_score'] = $v->scores()->whereBetween('created_at', [Carbon::today()->startOfDay(),Carbon::today()->endOfDay()])->sum('score');
             //格式化用户头像地址
             $leaderboardData[$k]['head_img'] = "background-image: url('/uploads/" . $v['head_img'] . "')";
+
+            $rewardData = $v->reward()->select('reward_icon')->first();
+            $leaderboardData[$k]['reward_icon'] = !empty($rewardData->reward_icon) ? '/uploads/' . $rewardData->reward_icon : '';
         }
 
-        return json_encode($leaderboardData);
+        $res = array(
+            'leaderboard_data' => $leaderboardData,
+            'leaderboard_update_time' => date('Y-m-d H:i')
+        );
+
+        return json_encode($res);
     }
 }

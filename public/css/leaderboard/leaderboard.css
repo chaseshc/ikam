@@ -123,6 +123,9 @@ body, html {
     transition: transform 200ms ease-in-out, -webkit-transform 200ms ease-in-out;
     box-shadow: 0 0 4rem 0 rgba(0, 0, 0, 0.1), 0 1rem 2rem -1rem rgba(0, 0, 0, 0.3);
 }
+.list .item .pos img {
+    width: 2rem;
+}
 .list .item .pos {
     font-weight: 900;
     position: absolute;

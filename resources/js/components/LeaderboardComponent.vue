@@ -1,61 +1,23 @@
 <template>
     <div class="center">
-        <!--<div class="top3">
-            <div class="two item">
-                <div class="pos">
-                    <img src="/images/leaderboard/second.png" alt="">
-                </div>
-                <div class="pic" :style="secondPos['head_img']"></div>
-                <div class="name">
-                    {{secondPos["true_name"]}}
-                </div>
-                <div class="today_score">
-                    今日积分：{{secondPos["today_score"]}}
-                </div>
-                <div class="score">
-                    总分：{{secondPos["total_score"]}}
-                </div>
-            </div>
-            <div class="one item">
-                <div class="pos">
-                    <img src="/images/leaderboard/first.png" alt="">
-                </div>
-                <div class="pic" :style="firstPos['head_img']"></div>
-                <div class="name">
-                    {{firstPos["true_name"]}}
-                </div>
-                <div class="today_score">
-                    今日积分：{{firstPos["today_score"]}}
-                </div>
-                <div class="score">
-                    总分：{{firstPos["total_score"]}}
-                </div>
-            </div>
-            <div class="three item">
-                <div class="pos">
-                    <img src="/images/leaderboard/third.png" alt="">
-                </div>
-                <div class="pic" :style="thirdPos['head_img']"></div>
-                <div class="name">
-                    {{thirdPos["true_name"]}}
-                </div>
-                <div class="today_score">
-                    今日积分：{{thirdPos["today_score"]}}
-                </div>
-                <div class="score">
-                    总分：{{thirdPos["total_score"]}}
-                </div>
-            </div>
-        </div>-->
-
         <div class="logo">
             <img src="/images/leaderboard/logo1.png" alt="">
         </div>
         <div class="list">
-            <div class="item" v-for="(pos, index) in otherPos">
-                <div class="pos">
-                    {{index+4}}
+            <div class="item" v-for="(pos, index) in leaderboard_data">
+                <div class="pos" v-if="index === 0">
+                    <img src="/images/leaderboard/first.png" alt="">
                 </div>
+                <div class="pos" v-else-if="index === 1">
+                    <img src="/images/leaderboard/second.png" alt="">
+                </div>
+                <div class="pos" v-else-if="index === 2">
+                    <img src="/images/leaderboard/third.png" alt="">
+                </div>
+                <div class="pos" v-else>
+                    {{index+1}}
+                </div>
+
                 <div class="pic" :style="pos['head_img']"></div>
                 <div class="name">
                     {{pos["true_name"]}}
@@ -66,8 +28,8 @@
                 <div class="score">
                     {{pos["total_score"]}}
                 </div>
-                <div class="badge">
-                    <img src="/images/leaderboard/badge_5.jpg" alt="">
+                <div class="badge" v-if="pos['reward_icon'] != ''">
+                    <img v-bind:src="pos['reward_icon']" alt="">
                 </div>
             </div>
         </div>
@@ -96,12 +58,9 @@
     export default {
         data () {
             return {
-                firstPos: [],
-                secondPos: [],
-                thirdPos: [],
-                otherPos: [],
-                dutyStaffData: [],
+                leaderboard_data: [],
                 leaderboard_update_time: '',
+                dutyStaffData: [],
                 today_duty_update_time: ''
             }
         },
@@ -110,22 +69,9 @@
                 let leaderboardUrl = "/api/getLeaderboard";
                 this.axios.get(leaderboardUrl).then(response => {
                     if (response.status == 200) {
-                        this.leaderboard = response.data;
-                        this.firstPos = response.data[0];
-                        this.secondPos = response.data[1];
-                        this.thirdPos = response.data[2];
+                        this.leaderboard_data = response.data.leaderboard_data;
+                        this.leaderboard_update_time = response.data.leaderboard_update_time;
 
-                        let otherPos = [];
-                        for (let i=0; i<response.data.length; i++) {
-                            if (i <= 2) {
-                                continue;
-                            }
-                            otherPos.push(response.data[i]);
-                        }
-                        this.otherPos = otherPos;
-
-                        let myDate = new Date();
-                        this.leaderboard_update_time = myDate.getFullYear() + '-' + (myDate.getMonth()+1) + '-' + myDate.getDate() + ' ' + myDate.getHours() + ':' + myDate.getMinutes();
                     } else {
                         console.log('获取积分榜数据失败')
                     }
@@ -147,7 +93,7 @@
         mounted: function() {
             this.getLeaderboard();
             this.getTodayDuty();
-            setInterval(this.getLeaderboard, 60000);
+            setInterval(this.getLeaderboard, 600000);
         }
     }
 </script>

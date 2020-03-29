@@ -83,6 +83,7 @@ class StaffController extends Controller
         $grid->head_img('头像')->lightbox(['zooming' => true, 'width' => 100, 'height' => 50]);
         $grid->phone('手机号')->sortable();
         $grid->column('total_score', '总积分')->sortable();
+        $grid->reward()->reward_icon('积分奖励')->image('', 30, 30);
 
         $isVacating = [
             'on'  => ['value' => 1, 'text' => '是', 'color' => 'warning'],
@@ -98,7 +99,6 @@ class StaffController extends Controller
 
         $grid->created_at('创建时间')->sortable();
         $grid->updated_at('最近修改时间')->sortable();
-
         $grid->actions(function ($actions) {
             $actions->add(new Update());
             $actions->add(new View());
