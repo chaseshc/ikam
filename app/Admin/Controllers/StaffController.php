@@ -104,7 +104,6 @@ class StaffController extends Controller
             $actions->add(new View());
             $actions->disableView();
         });
-        $grid->disableExport();
 
         return $grid;
     }

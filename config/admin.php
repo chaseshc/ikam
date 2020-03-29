@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>小麦</b> 科技',
+    'logo' => '<b>岩錦</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<b>小麦</b>',
+    'logo-mini' => '<b>岩錦</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -393,4 +393,7 @@ return [
             ]
         ]
     ],
+
+    'grid_action_class' => \Encore\Admin\Grid\Displayers\DropdownActions::class,
+
 ];
