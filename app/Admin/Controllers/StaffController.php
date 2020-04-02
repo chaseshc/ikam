@@ -11,6 +11,7 @@ use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use App\Admin\Actions\Score\Update;
 use App\Admin\Actions\Score\View;
+use App\Admin\Actions\Score\Export;
 
 class StaffController extends Controller
 {
@@ -103,6 +104,10 @@ class StaffController extends Controller
             $actions->add(new Update());
             $actions->add(new View());
             $actions->disableView();
+        });
+
+        $grid->tools(function (Grid\Tools $tools) {
+            $tools->append(new Export());
         });
 
         return $grid;

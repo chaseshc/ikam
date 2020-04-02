@@ -54,19 +54,6 @@ class DutyController extends Controller
             $tools->append(new Create());
         });
 
-        /*$grid->quickCreate(function (Grid\Tools\QuickCreate $create) {
-            $allStaffList = Staff::where('status', '1')
-                ->where('is_vacating', 0)
-                ->get()
-                ->toArray();
-            $staffIds = array();
-            foreach($allStaffList as $k => $v) {
-                $staffIds[$v['id']] = $v['true_name'];
-            }
-            $create->select('staff_id', '请选择员工')->options($staffIds);
-            $create->date('duty_date', '请选择日期');
-        });*/
-
         return $grid;
     }
 

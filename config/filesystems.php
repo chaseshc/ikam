@@ -70,6 +70,13 @@ return [
             'url' => env('APP_URL').'/uploads',
         ],
 
+        'export' => [
+            'driver' => 'local',
+            'root' => public_path('exports'),
+            'visibility' => 'public',
+            'url' => env('APP_URL').'/exports',
+        ],
+
     ],
 
 ];
