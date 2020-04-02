@@ -23,7 +23,7 @@ class Export extends Action
     public function html()
     {
         return <<<HTML
-        <a class="btn btn-sm btn-default export">导出积分历史</a>
+        <a class="btn btn-sm btn-default export"><i class="fa fa-download"></i> 导出积分历史</a>
 HTML;
     }
 
