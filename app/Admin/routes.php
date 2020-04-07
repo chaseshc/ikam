@@ -10,7 +10,8 @@ Route::group([
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
 
-    $router->get('/', 'HomeController@index')->name('admin.home');
+    $router->get('/', 'StaffController@index')->name('admin.home');
+    $router->get('/dashborad', 'HomeController@index')->name('admin.home');
     $router->post('upload', 'UploadController@index')->name('admin.upload');
     $router->resource('staffs', StaffController::class);
     $router->resource('duties', DutyController::class);
