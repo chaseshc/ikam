@@ -26,8 +26,8 @@ class Kernel extends ConsoleKernel
     {
          $schedule->command('score:clear')
              ->monthlyOn(1, '01:00');
-        $schedule->command('random:duty')
-            ->everyMinute();
+        /*$schedule->command('random:duty')
+            ->everyMinute();*/
     }
 
     /**
