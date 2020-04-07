@@ -47,11 +47,13 @@ class RandomDuty extends Command
             ->select('staff_id')
             ->first();
 
+        $staffId = !empty($todayDutyStaff) ? $todayDutyStaff->staff_id : 0;
+
         //随机产生今日的staff_id
         $allStaffIds = Staff::where('is_vacating', '0')
             ->where('is_display', 1)
             ->where('status', 1)
-            ->where('id', '<>', $todayDutyStaff->staff_id)
+            ->where('id', '<>', $staffId)
             ->select('id')
             ->get()
             ->toArray();
