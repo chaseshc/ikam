@@ -81,7 +81,7 @@ class Create extends Action
 
     public function form()
     {
-        $this->date('duty_date', '请选择值日日期');
+        $this->date('duty_date', '请选择值日日期')->rules('required');
     }
 
     public function html()
