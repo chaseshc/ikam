@@ -214,7 +214,7 @@ body, html {
 .duty .item .name {
     -webkit-box-flex: 2;
     flex-grow: 2;
-    flex-basis: 10rem;
+    flex-basis: 7rem;
     font-size: 1.1rem;
     padding-left: 1em;
 }

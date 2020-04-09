@@ -14,8 +14,30 @@ class Create extends Action
 
     public function handle(Request $request)
     {
-        $staffId = $request->staff_id;
         $dutyDate = $request->duty_date;
+
+        //查看昨天的值日staff_id
+        $yesterdayDate = date("Y-m-d", strtotime ("-1 day"));
+        $todayDutyStaff = StaffDutyHistory::where('status', 1)
+            ->where('duty_date', "{$yesterdayDate}")
+            ->orderBy('created_at', 'desc')
+            ->select('staff_id')
+            ->first();
+
+        $staffId = !empty($todayDutyStaff) ? $todayDutyStaff->staff_id : 0;
+
+        //随机产生今日的staff_id
+        $allStaffIds = Staff::where('is_vacating', '0')
+            ->where('is_display', 1)
+            ->where('status', 1)
+            ->where('id', '<>', $staffId)
+            ->select('id')
+            ->get()
+            ->toArray();
+
+        $allStaffIds = collect($allStaffIds)->flatten()->all();
+        $allStaffIdsKey = array_rand($allStaffIds);
+        $todayDutyStaffId = $allStaffIds[$allStaffIdsKey];
 
         $todayDutyStaff = StaffDutyHistory::where('status', 1)
             ->where('duty_date', "{$dutyDate}")
@@ -29,7 +51,7 @@ class Create extends Action
 
         //添加今日的值日记录
         $StaffDutyHistoryModel = new StaffDutyHistory();
-        $StaffDutyHistoryModel->staff_id = $staffId;
+        $StaffDutyHistoryModel->staff_id = $todayDutyStaffId;
         $StaffDutyHistoryModel->duty_date = $dutyDate;
 
         DB::beginTransaction();
@@ -59,15 +81,6 @@ class Create extends Action
 
     public function form()
     {
-        $allStaffList = Staff::where('status', '1')
-            ->where('is_vacating', 0)
-            ->get()
-            ->toArray();
-        $staffIds = array();
-        foreach($allStaffList as $k => $v) {
-            $staffIds[$v['id']] = $v['true_name'];
-        }
-        $this->select('staff_id', '请选择员工')->options($staffIds);
         $this->date('duty_date', '请选择值日日期');
     }
 
