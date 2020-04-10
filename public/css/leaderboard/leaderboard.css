@@ -7,7 +7,9 @@ body, html {
 
 .center {
     position: absolute;
-    top: 52%;
+    overflow-y: hidden;
+    height: 100%;
+    top: 50%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
@@ -96,12 +98,16 @@ body, html {
 .logo {
     text-align: center;
     margin-bottom: 2rem;
+    margin-top: 0.5rem;
+    height: 7%;
 }
 .logo img {
     width: 30rem;
 }
 .list {
     margin: 0 auto;
+    height: 78%;
+    overflow: hidden;
 }
 .list .item {
     position: relative;
@@ -109,10 +115,10 @@ body, html {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
-    height: 3rem;
+    height: 7.8%;
     width: 100%;
     border-radius: 10px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
     background: #FFF;
     -webkit-transform-origin: left;
     transform-origin: left;
@@ -139,8 +145,8 @@ body, html {
     transition: opacity 200ms ease-in-out;
 }
 .list .item .pic {
-    width: 3rem;
-    height: 3rem;
+    width: 2.9rem;
+    height: 100%;
     border-radius: 10px;
     border-bottom-right-radius: 50%;
     border-top-right-radius: 50%;
@@ -225,7 +231,7 @@ body, html {
 }
 #leaderboard_update_time-div {
     text-align: right;
-    margin-bottom: 2em;
+    margin-bottom: 0.5em;
 }
 #leaderboard_update_time-div span {
     font-size: 0.8em;
