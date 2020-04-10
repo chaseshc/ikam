@@ -3,6 +3,7 @@ body, html {
     width: 100%;
     background: #2A3A51;
     color: #333;
+    overflow-y: hidden;
 }
 
 .center {
@@ -133,13 +134,13 @@ body, html {
     width: 100%;
     border-radius: 10px;
     background: #FFF;
-    -webkit-transform-origin: left;
-    transform-origin: left;
-    cursor: pointer;
+    /*-webkit-transform-origin: left;
+    transform-origin: left;*/
+    /*cursor: pointer;
     -webkit-transition: -webkit-transform 200ms ease-in-out;
     transition: -webkit-transform 200ms ease-in-out;
     transition: transform 200ms ease-in-out;
-    transition: transform 200ms ease-in-out, -webkit-transform 200ms ease-in-out;
+    transition: transform 200ms ease-in-out, -webkit-transform 200ms ease-in-out;*/
     box-shadow: 0 0 4rem 0 rgba(0, 0, 0, 0.1), 0 1rem 2rem -1rem rgba(0, 0, 0, 0.3);
 }
 .list .item .pos img {
@@ -197,13 +198,13 @@ body, html {
     width: 2rem;
     height: 2rem;
 }
-.list .item:hover {
+/*.list .item:hover {
     -webkit-transform: scale(1.05);
     transform: scale(1.05);
-}
-.list .item:hover .pos {
+}*/
+/*.list .item:hover .pos {
     opacity: 0.8;
-}
+}*/
 .duty {
     margin: 0 auto;
 }
