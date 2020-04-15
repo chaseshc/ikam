@@ -30,7 +30,6 @@ class RewardController extends AdminController
         $grid->column('name', __('奖励名称'))->sortable();
         $grid->column('score', __('奖励积分价值'))->sortable();
         $grid->column('starting_point', __('奖励积分基点'))->sortable();
-        $grid->column('starting_point', __('奖励积分基点'))->sortable();
         $grid->column('created_at', __('创建时间'))->sortable();
         $grid->column('updated_at', __('更新时间'))->sortable();
 
