@@ -15,7 +15,8 @@ class Export extends Action
     public function handle(Request $request)
     {
         $id = $request->get('month');
-        $exportFilePath = date('Y-m').'积分历史.xlsx';
+        $staffScoreHistoryData = StaffScoreHistory::find($id);
+        $exportFilePath = $staffScoreHistoryData->month.'积分历史.xlsx';
         Excel::store(new StaffScoreHistoryExport($id), $exportFilePath, 'export');
         return $this->response()->success('导出成功！')->download('/exports/' . $exportFilePath);
     }
