@@ -54,7 +54,7 @@ class ClearStaffScore extends Command
         }
 
         $StaffScoreHistoryModel = new StaffScoreHistory();
-        $StaffScoreHistoryModel->month = date('Y-m');
+        $StaffScoreHistoryModel->month = date('Y-m',strtotime('-1 month'));
         $StaffScoreHistoryModel->score_content = json_encode($staffScoreList);
 
         DB::beginTransaction();
