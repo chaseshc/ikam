@@ -10,7 +10,7 @@
         "fideloper/proxy": "~4.0",
         "jxlwqq/wang-editor2": "^1.0",
         "laravel-admin-ext/grid-lightbox": "^1.0",
-        "laravel/framework": "5.8.*",
+        "laravel/framework": "6.20.*",
         "laravel/tinker": "~1.0",
         "laravel/ui": "1.2",
         "maatwebsite/excel": "^3.1",
