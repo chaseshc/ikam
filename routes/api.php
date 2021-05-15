@@ -21,10 +21,10 @@ Route::get('/getLeaderboard', '\App\Http\Controllers\Api\LeaderboardController@g
 Route::get('/randomTodayDuty', '\App\Http\Controllers\Api\DutyController@randomDuty');              //随机生成今日值日生
 Route::get('/getTodayDuty', '\App\Http\Controllers\Api\DutyController@getTodayDuty');               //获取今日值日生
 
-Route::get('/wechat', '\App\Http\Controllers\Api\WechatController@serve');
+Route::get('/wechat', '\App\Http\Controllers\WechatApi\WechatController@serve');
 
 Route::group(['middleware' => ['wechat.oauth']],function (){
-    Route::get('/user','\App\Http\Controllers\Api\WeChatController@user');
+    Route::get('/user','\App\Http\Controllers\WechatApi\WeChatController@user');
 });
 
 
