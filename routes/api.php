@@ -21,7 +21,7 @@ Route::get('/getLeaderboard', '\App\Http\Controllers\Api\LeaderboardController@g
 Route::get('/randomTodayDuty', '\App\Http\Controllers\Api\DutyController@randomDuty');              //随机生成今日值日生
 Route::get('/getTodayDuty', '\App\Http\Controllers\Api\DutyController@getTodayDuty');               //获取今日值日生
 
-Route::any('/wechat', '\App\Http\Controllers\Wechat_api\WeChatController@serve');
+Route::get('/wechat', '\App\Http\Controllers\Api\WechatController@serve');
 
 Route::group(['middleware' => ['wechat.oauth']],function (){
     Route::get('/user','\App\Http\Controllers\Api\WeChatController@user');
