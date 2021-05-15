@@ -24,5 +24,7 @@ Route::get('/getTodayDuty', '\App\Http\Controllers\Api\DutyController@getTodayDu
 Route::any('/wechat', '\App\Http\Controllers\Wechat_api\WeChatController@serve');
 
 Route::group(['middleware' => ['wechat.oauth']],function (){
-    Route::get('/user','\App\Http\Controllers\Wechat_api\WeChatController@user');
+    Route::get('/user','\App\Http\Controllers\Api\WeChatController@user');
 });
+
+
